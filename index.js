@@ -48,6 +48,46 @@ app.post("/processInput", async (req, res) => {
   res.json({ output: processedOutput });
 });
 
+app.post("/processInput/habits", async (req, res) => {
+  const selectedHabits = req.body.input;
+  const combinedString = selectedHabits.join(', ');
+
+
+  const firstLaw = "Make it obvious, ";
+  const secondLaw = "Make it attractive ";
+  const thirdLaw = "Make it easy ";
+  const fourthLaw = "Make it satisfying ";
+  
+
+  const createGoodHabit = "For each one of these habits:" + combinedString + "can you, can you make them better by including these principles and send it back with each habit seperated with only a single \n ever and a number: "
+
+  let concatenatedWord = createGoodHabit + firstLaw + secondLaw + thirdLaw + fourthLaw;
+
+  // Send user input to OpenAI's API for processing
+  const completion2 = await openai.chat.completions.create({
+    messages: [{ role: "user", content: concatenatedWord }],
+    model: "gpt-3.5-turbo",
+  });
+
+  const habitsMoreDetail = completion2.choices[0].message.content;
+  // Split the text into individual habit items using the delimiter "\n\n"
+  const habitMoreDetailItems = habitsMoreDetail.split("\n");
+
+  // Create an array to store the parsed habits
+  const habitsEdited = [];
+  habitMoreDetailItems.forEach((item, index) => {
+    habitsEdited.push({
+      description: item.trim(), // Remove leading/trailing whitespace
+    });
+  });
+
+  // Example usage:
+  const processedOutput = habitsEdited;
+
+  // Send back the processed output to the client
+  res.json({ output: processedOutput });
+});
+
 // mongoose added
 
 mongoose
