@@ -2,12 +2,17 @@
 import bodyParser from "body-parser";
 import 'dotenv/config'
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
+
 import OpenAIApi from "openai";
 import 'dotenv/config'
 
 const app = express();
+const port = 3000; // Or any port you prefer
+
 app.use(bodyParser.json());
+app.use(cors());
 
 const openai = new OpenAIApi({
   api_key: process.env.OPENAI_API_KEY // Load API key from environment variable
@@ -31,6 +36,8 @@ app.post('/processInput', async (req, res) => {
   res.json({ output: processedOutput });
 });
 
+// mongoose added
+
 mongoose.connect("mongodb+srv://bhatiawaris:6dmMO9dYQn5PRTq3@bcshacks.5q80r3g.mongodb.net/yourDatabaseNameHere?retryWrites=true&w=majority&appName=bcsHacks")
   .then(() => {
     console.log("Connected to MongoDB");
@@ -50,7 +57,6 @@ mongoose.connect("mongodb+srv://bhatiawaris:6dmMO9dYQn5PRTq3@bcshacks.5q80r3g.mo
 
   const User = import('./userModel.js').default;
 
-const port = 3000; // Or any port you prefer
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
