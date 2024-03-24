@@ -53,7 +53,7 @@ app.post("/processInput/habits", async (req, res) => {
   const thirdLaw = "Make it easy ";
   const fourthLaw = "Make it satisfying ";
 
-  const createGoodHabit = "For each one of these habits:" + combinedString + "can you, can you make them better by including these principles and send it back so it can be parsed by seperating at each \n at the end of each group of sub tips and dont include numbers for the sub habits, so only include line break after the four make it...."
+  const createGoodHabit = "For each one of these habits:" + combinedString + "can you, can you make them better by including these principles and send it back so it can be parsed by seperating at each \n at the end of each group of sub tips and dont include numbers for the sub habits, so only include line break after the other sub habits: "
 
   let concatenatedWord =
     createGoodHabit + firstLaw + secondLaw + thirdLaw + fourthLaw;
