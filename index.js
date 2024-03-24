@@ -5,16 +5,15 @@ import cors from "cors";
 import mongoose from "mongoose";
 
 import OpenAIApi from "openai";
-import "dotenv/config";
 
 const app = express();
-const port = 3001; // Or any port you prefer
+const port = 3001;
 
 app.use(bodyParser.json());
 app.use(cors());
 
 const openai = new OpenAIApi({
-  api_key: process.env.OPENAI_API_KEY, // Load API key from environment variable
+  api_key: process.env.OPENAI_API_KEY,
 });
 
 app.post("/processInput", async (req, res) => {
@@ -41,10 +40,7 @@ app.post("/processInput", async (req, res) => {
     });
   });
 
-  // Example usage:
   const processedOutput = habits;
-
-  // Send back the processed output to the client
   res.json({ output: processedOutput });
 });
 
