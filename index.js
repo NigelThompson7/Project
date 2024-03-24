@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import OpenAIApi from "openai";
 
 const app = express();
-const port = 3001;
+const port = 3000;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -55,7 +55,7 @@ app.post("/processInput/habits", async (req, res) => {
   const fourthLaw = "Make it satisfying ";
   
 
-  const createGoodHabit = "For each one of these habits:" + combinedString + "can you, can you make them better by including these principles and send it back with each habit seperated with only a single \n ever and a number: "
+  const createGoodHabit = "For each one of these habits:" + combinedString + "can you, can you make them better by including these principles and send it back so it can be parsed by seperating at each \n at the end of each group of sub tips and dont include numbers for the sub habits, so only include line break after the four make it...."
 
   let concatenatedWord = createGoodHabit + firstLaw + secondLaw + thirdLaw + fourthLaw;
 
