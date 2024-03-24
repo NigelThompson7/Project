@@ -17,7 +17,7 @@ const openai = new OpenAIApi({
 });
 
 app.post("/processInput", async (req, res) => {
-  const userInput = req.body.input;
+  const userInput = req.body.goal;
   const promptAddition =
     ": give me 10 different options/tips that can help lead me to this goal and send it back with each habit seperated with a \n and a number";
   let concatenatedWord = userInput.concat(promptAddition);
@@ -45,19 +45,21 @@ app.post("/processInput", async (req, res) => {
 });
 
 app.post("/processInput/habits", async (req, res) => {
-  const selectedHabits = req.body.input;
-  const combinedString = selectedHabits.join(', ');
-
+  const selectedHabits = req.body.selectedHabits;
+  const combinedString = selectedHabits.join(", ");
 
   const firstLaw = "Make it obvious, ";
   const secondLaw = "Make it attractive ";
   const thirdLaw = "Make it easy ";
   const fourthLaw = "Make it satisfying ";
-  
 
-  const createGoodHabit = "For each one of these habits:" + combinedString + "can you, can you make them better by including these principles and send it back with each habit seperated with only a single \n ever and a number: "
+  const createGoodHabit =
+    "For each one of these habits:" +
+    combinedString +
+    "can you, can you make them better by including these principles and send it back with each habit seperated with only a single \n ever and a number: ";
 
-  let concatenatedWord = createGoodHabit + firstLaw + secondLaw + thirdLaw + fourthLaw;
+  let concatenatedWord =
+    createGoodHabit + firstLaw + secondLaw + thirdLaw + fourthLaw;
 
   // Send user input to OpenAI's API for processing
   const completion2 = await openai.chat.completions.create({
@@ -83,8 +85,6 @@ app.post("/processInput/habits", async (req, res) => {
   // Send back the processed output to the client
   res.json({ output: processedOutput });
 });
-
-// mongoose added
 
 mongoose
   .connect(
