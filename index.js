@@ -8,7 +8,7 @@ import OpenAIApi from "openai";
 import "dotenv/config";
 
 const app = express();
-const port = 3000; // Or any port you prefer
+const port = 3001; // Or any port you prefer
 
 app.use(bodyParser.json());
 app.use(cors());
